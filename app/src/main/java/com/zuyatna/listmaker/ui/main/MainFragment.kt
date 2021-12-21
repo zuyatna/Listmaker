@@ -18,8 +18,6 @@ class MainFragment : Fragment(), LifecycleObserver {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,15 +31,6 @@ class MainFragment : Fragment(), LifecycleObserver {
         binding.listsRecyclerview.adapter = ListSelectionRecyclerViewAdapter()
 
         return binding.root
-    }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-//    }
-
-    fun onCreated(){
-        activity?.lifecycle?.removeObserver(this)
     }
 
     override fun onAttach(context: Context) {
