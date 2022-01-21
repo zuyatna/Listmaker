@@ -1,5 +1,6 @@
 package com.zuyatna.listmaker.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,8 +35,8 @@ class MainFragment : Fragment(), LifecycleObserver {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(
             requireActivity(),
@@ -49,5 +50,10 @@ class MainFragment : Fragment(), LifecycleObserver {
         viewModel.onListsAdded = {
             recyclerViewAdapter.listsUpdated()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.lifecycle?.addObserver(this)
     }
 }
