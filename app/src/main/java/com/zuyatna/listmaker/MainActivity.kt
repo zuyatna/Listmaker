@@ -5,15 +5,25 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.zuyatna.listmaker.databinding.MainActivityBinding
+import com.zuyatna.listmaker.models.MainViewModel
+import com.zuyatna.listmaker.ui.main.MainViewModelFactory
 import com.zuyatna.listmaker.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))
+        )[MainViewModel::class.java]
 
         binding = MainActivityBinding.inflate(layoutInflater)
 
@@ -32,11 +42,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCreateListDialog() {
-        // 1
         val dialogTitle = getString(R.string.name_of_list)
         val positiveButtonTitle = getString(R.string.create_list)
 
-        // 2
         val builder = AlertDialog.Builder(this)
         val listTitleEditText = EditText(this)
         listTitleEditText.inputType = InputType.TYPE_CLASS_TEXT
@@ -44,12 +52,11 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle(dialogTitle)
         builder.setView(listTitleEditText)
 
-        // 3
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             dialog.dismiss()
+            viewModel.saveList(TaskList(listTitleEditText.text.toString()))
         }
 
-        // 4
         builder.create().show()
     }
 }

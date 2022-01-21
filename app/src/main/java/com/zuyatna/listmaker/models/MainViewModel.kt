@@ -13,6 +13,7 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
     }
 
     private fun retrieveLists(): MutableList<TaskList> {
+
         val sharedPreferencesContents = sharedPreferences.all
         val taskLists = ArrayList<TaskList>()
 
