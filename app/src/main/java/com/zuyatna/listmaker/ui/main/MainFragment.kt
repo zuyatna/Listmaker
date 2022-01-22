@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zuyatna.listmaker.databinding.MainFragmentBinding
-import com.zuyatna.listmaker.models.MainViewModel
 
 class MainFragment : Fragment(), LifecycleObserver {
 

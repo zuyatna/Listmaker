@@ -3,7 +3,7 @@ package com.zuyatna.listmaker.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zuyatna.listmaker.TaskList
+import com.zuyatna.listmaker.models.TaskList
 import com.zuyatna.listmaker.databinding.ListSelectionViewHolderBinding
 
 class ListSelectionRecyclerViewAdapter(

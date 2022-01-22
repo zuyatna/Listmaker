@@ -1,8 +1,8 @@
-package com.zuyatna.listmaker.models
+package com.zuyatna.listmaker.ui.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.zuyatna.listmaker.TaskList
+import com.zuyatna.listmaker.models.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 

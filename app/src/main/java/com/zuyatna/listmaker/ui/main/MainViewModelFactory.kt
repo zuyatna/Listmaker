@@ -3,7 +3,6 @@ package com.zuyatna.listmaker.ui.main
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.zuyatna.listmaker.models.MainViewModel
 
 class MainViewModelFactory(
     private val sharedPreferences: SharedPreferences

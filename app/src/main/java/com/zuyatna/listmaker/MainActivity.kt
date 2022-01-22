@@ -8,7 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.zuyatna.listmaker.databinding.MainActivityBinding
-import com.zuyatna.listmaker.models.MainViewModel
+import com.zuyatna.listmaker.ui.main.MainViewModel
+import com.zuyatna.listmaker.models.TaskList
 import com.zuyatna.listmaker.ui.main.MainViewModelFactory
 import com.zuyatna.listmaker.ui.main.MainFragment
 
