@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.zuyatna.listmaker.R
 import com.zuyatna.listmaker.databinding.ListDetailFragmentBinding
 
 class ListDetailFragment : Fragment() {
 
-    lateinit var binding: ListDetailFragmentBinding
+    private lateinit var binding: ListDetailFragmentBinding
 
     companion object {
         fun newInstance() = ListDetailFragment()

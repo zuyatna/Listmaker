@@ -4,7 +4,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zuyatna.listmaker.databinding.ListItemViewHolderBinding
 
 class ListItemViewHolder(
-    binding: ListItemViewHolderBinding
-) : RecyclerView.ViewHolder(binding.root) {
-
-}
+    val binding: ListItemViewHolderBinding
+) : RecyclerView.ViewHolder(binding.root)

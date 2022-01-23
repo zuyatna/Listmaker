@@ -18,7 +18,7 @@ class ListItemsRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.binding.textViewTask.text = list.tasks[position]
     }
 
     override fun getItemCount(): Int {
