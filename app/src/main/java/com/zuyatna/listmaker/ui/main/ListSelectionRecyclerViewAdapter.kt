@@ -7,8 +7,13 @@ import com.zuyatna.listmaker.models.TaskList
 import com.zuyatna.listmaker.databinding.ListSelectionViewHolderBinding
 
 class ListSelectionRecyclerViewAdapter(
-    private val lists: MutableList<TaskList>
+    private val lists: MutableList<TaskList>,
+    private val clickListener: ListSelectionRecyclerViewClickListener
 ) : RecyclerView.Adapter<ListSelectionViewHolder>() {
+
+    interface ListSelectionRecyclerViewClickListener {
+        fun listItemClicked(taskList: TaskList)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListSelectionViewHolder {
 
@@ -24,6 +29,10 @@ class ListSelectionRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ListSelectionViewHolder, position: Int) {
         holder.binding.itemNumber.text = (position + 1).toString()
         holder.binding.itemString.text = lists[position].name
+
+        holder.itemView.setOnClickListener {
+            clickListener.listItemClicked(lists[position])
+        }
     }
 
     override fun getItemCount(): Int {

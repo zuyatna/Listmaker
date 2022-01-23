@@ -11,14 +11,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zuyatna.listmaker.databinding.MainFragmentBinding
+import com.zuyatna.listmaker.models.TaskList
 
-class MainFragment : Fragment(), LifecycleObserver {
+class MainFragment(
+    private val clickListener: MainFragmentInteractionListener
+) : Fragment(),
+    LifecycleObserver,
+    ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
 
     private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
 
+    interface MainFragmentInteractionListener {
+        fun listItemTapped(list: TaskList)
+    }
+
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(clickListener: MainFragmentInteractionListener) = MainFragment(clickListener)
     }
 
     override fun onCreateView(
@@ -42,7 +51,7 @@ class MainFragment : Fragment(), LifecycleObserver {
             MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(requireActivity()))
         )[MainViewModel::class.java]
 
-        val recyclerViewAdapter = ListSelectionRecyclerViewAdapter(viewModel.lists)
+        val recyclerViewAdapter = ListSelectionRecyclerViewAdapter(viewModel.lists, this)
 
         binding.listsRecyclerview.adapter = recyclerViewAdapter
 
@@ -54,5 +63,9 @@ class MainFragment : Fragment(), LifecycleObserver {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity?.lifecycle?.addObserver(this)
+    }
+
+    override fun listItemClicked(taskList: TaskList) {
+        clickListener.listItemTapped(taskList)
     }
 }
