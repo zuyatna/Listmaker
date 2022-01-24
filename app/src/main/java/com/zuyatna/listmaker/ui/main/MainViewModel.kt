@@ -31,4 +31,15 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         lists.add(list)
         onListsAdded.invoke()
     }
+
+    fun updateList(parcelableExtra: TaskList) {
+        sharedPreferences.edit()
+            .putStringSet(parcelableExtra.name, parcelableExtra.tasks.toHashSet()).apply()
+        lists.add(parcelableExtra)
+    }
+
+    fun refreshLists() {
+        lists.clear()
+        lists.addAll(retrieveLists())
+    }
 }

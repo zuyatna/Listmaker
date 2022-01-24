@@ -1,19 +1,20 @@
 package com.zuyatna.listmaker
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.zuyatna.listmaker.databinding.MainActivityBinding
-import com.zuyatna.listmaker.ui.main.MainViewModel
 import com.zuyatna.listmaker.models.TaskList
 import com.zuyatna.listmaker.ui.detail.ListDetailActivity
-import com.zuyatna.listmaker.ui.main.MainViewModelFactory
 import com.zuyatna.listmaker.ui.main.MainFragment
+import com.zuyatna.listmaker.ui.main.MainViewModel
+import com.zuyatna.listmaker.ui.main.MainViewModelFactory
 
 class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionListener {
 
@@ -69,14 +70,27 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
         builder.create().show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == LIST_DETAIL_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                viewModel.updateList(data.getParcelableExtra(INTENT_LIST_KEY)!!)
+                viewModel.refreshLists()
+            }
+        }
+    }
+
     private fun showListDetail(list: TaskList) {
         val listDetailIntent = Intent(this, ListDetailActivity::class.java)
-        listDetailIntent.putExtra(INTENT_TEST_KEY, list)
-        startActivity(listDetailIntent)
+        listDetailIntent.putExtra(INTENT_LIST_KEY, list)
+
+        startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
     }
 
     companion object {
-        const val INTENT_TEST_KEY = "list"
+        const val INTENT_LIST_KEY = "list"
+        const val LIST_DETAIL_REQUEST_CODE = 123
     }
 
     override fun listItemTapped(list: TaskList) {

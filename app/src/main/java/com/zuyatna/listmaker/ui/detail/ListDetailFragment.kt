@@ -29,8 +29,9 @@ class ListDetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(requireActivity())[ListDetailViewModel::class.java]
 
         val recyclerAdapter = ListItemsRecyclerViewAdapter(viewModel.list)
@@ -42,4 +43,14 @@ class ListDetailFragment : Fragment() {
         }
     }
 
+
+    /*
+     onActivityCreated is deprecated
+
+     The onActivityCreated() method is now deprecated. Code touching the fragment's view
+     should be done in onViewCreated() (which is called immediately before onActivityCreated())
+     and other initialization code should be in onCreate(). To receive a callback specifically
+     when the activity's onCreate() is complete, a LifeCycleObserver should be registered on
+     the activity's Lifecycle in onAttach(), and removed once the onCreate() callback is received.
+     */
 }

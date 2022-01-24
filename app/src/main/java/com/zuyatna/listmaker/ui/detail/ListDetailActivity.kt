@@ -1,5 +1,7 @@
 package com.zuyatna.listmaker.ui.detail
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -12,8 +14,8 @@ import com.zuyatna.listmaker.databinding.ListDetailActivityBinding
 
 class ListDetailActivity : AppCompatActivity() {
 
-    lateinit var binding: ListDetailActivityBinding
-    lateinit var viewModel: ListDetailViewModel
+    private lateinit var binding: ListDetailActivityBinding
+    private lateinit var viewModel: ListDetailViewModel
     lateinit var fragment: ListDetailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +26,7 @@ class ListDetailActivity : AppCompatActivity() {
         setContentView(view)
 
         viewModel = ViewModelProvider(this)[ListDetailViewModel::class.java]
-        viewModel.list = intent.getParcelableExtra(MainActivity.INTENT_TEST_KEY)!!
+        viewModel.list = intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY)!!
 
         binding.addTaskButton.setOnClickListener {
             showCreateDialog()
@@ -37,6 +39,18 @@ class ListDetailActivity : AppCompatActivity() {
                 .replace(R.id.detail_container, ListDetailFragment.newInstance())
                 .commitNow()
         }
+    }
+
+    override fun onBackPressed() {
+
+        val bundle = Bundle()
+        bundle.putParcelable(MainActivity.INTENT_LIST_KEY, viewModel.list)
+
+        val intent = Intent()
+        intent.putExtras(bundle)
+        setResult(Activity.RESULT_OK, intent)
+
+        super.onBackPressed()
     }
 
     private fun showCreateDialog() {
