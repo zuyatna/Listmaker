@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
         val listDetailIntent = Intent(this, ListDetailActivity::class.java)
         listDetailIntent.putExtra(INTENT_LIST_KEY, list)
 
-        startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
+         startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
     }
 
     companion object {
