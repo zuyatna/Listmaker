@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
         if (savedInstanceState == null) {
             val mainFragment = MainFragment.newInstance(this)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, mainFragment)
+                .replace(R.id.detail_container, mainFragment)
                 .commitNow()
         }
 
