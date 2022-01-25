@@ -6,10 +6,19 @@ import com.zuyatna.listmaker.models.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
+    lateinit var list: TaskList
+
+    lateinit var onTaskAdded: (() -> Unit)
+
     lateinit var onListsAdded: (() -> Unit)
 
     val lists: MutableList<TaskList> by lazy {
         retrieveLists()
+    }
+
+    fun addTask(task: String) {
+        list.tasks.add(task)
+        onTaskAdded.invoke()
     }
 
     private fun retrieveLists(): MutableList<TaskList> {

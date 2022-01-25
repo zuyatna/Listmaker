@@ -105,6 +105,47 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
                 setReorderingAllowed(true)
                 replace(R.id.list_detail_fragment_container, ListDetailFragment::class.java, bundle, null)
             }
+
+            binding.fabButton.setOnClickListener {
+                showCreateTaskDialog()
+            }
+        }
+    }
+
+    private fun showCreateTaskDialog() {
+        val taskEditText = EditText(this)
+        taskEditText.inputType = InputType.TYPE_CLASS_TEXT
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.task_to_add)
+            .setView(taskEditText)
+            .setPositiveButton(R.string.add_task) { dialog, _ ->
+                val task = taskEditText.text.toString()
+                viewModel.addTask(task)
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    override fun onBackPressed() {
+
+        val listDetailFragment =
+            supportFragmentManager.findFragmentById(R.id.list_detail_fragment_container)
+
+        if (listDetailFragment == null) {
+            super.onBackPressed()
+        } else {
+            title = resources.getString(R.string.app_name)
+
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                remove(listDetailFragment)
+            }
+
+            binding.fabButton.setOnClickListener {
+                showCreateListDialog()
+            }
         }
     }
 

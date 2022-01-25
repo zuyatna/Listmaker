@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zuyatna.listmaker.MainActivity
 import com.zuyatna.listmaker.databinding.ListDetailFragmentBinding
 import com.zuyatna.listmaker.models.TaskList
+import com.zuyatna.listmaker.ui.main.MainViewModel
+import com.zuyatna.listmaker.ui.main.MainViewModelFactory
 
 class ListDetailFragment : Fragment() {
 
@@ -20,7 +23,7 @@ class ListDetailFragment : Fragment() {
         fun newInstance() = ListDetailFragment()
     }
 
-    private lateinit var viewModel: ListDetailViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +38,9 @@ class ListDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[ListDetailViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(),
+            MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(requireActivity()))
+        )[MainViewModel::class.java]
 
         val list: TaskList? = arguments?.getParcelable(MainActivity.INTENT_LIST_KEY)
         if (list != null) {
