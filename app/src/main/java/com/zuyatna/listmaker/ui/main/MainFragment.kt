@@ -13,21 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zuyatna.listmaker.databinding.MainFragmentBinding
 import com.zuyatna.listmaker.models.TaskList
 
-class MainFragment(
-    private val clickListener: MainFragmentInteractionListener
-) : Fragment(),
+class MainFragment: Fragment(),
     LifecycleObserver,
     ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
 
     private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
+    lateinit var clickListener: MainFragmentInteractionListener
 
     interface MainFragmentInteractionListener {
         fun listItemTapped(list: TaskList)
     }
 
     companion object {
-        fun newInstance(clickListener: MainFragmentInteractionListener) = MainFragment(clickListener)
+        fun newInstance() = MainFragment()
     }
 
     override fun onCreateView(

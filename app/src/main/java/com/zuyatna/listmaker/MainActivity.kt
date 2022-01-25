@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
         setContentView(view)
 
         if (savedInstanceState == null) {
-//            val mainFragment = MainFragment.newInstance(this)
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.detail_container, mainFragment)
-//                .commitNow()
-
             val mainFragment = MainFragment.newInstance()
             mainFragment.clickListener = this
 
