@@ -7,12 +7,14 @@ import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.zuyatna.listmaker.databinding.MainActivityBinding
 import com.zuyatna.listmaker.models.TaskList
 import com.zuyatna.listmaker.ui.detail.ListDetailActivity
+import com.zuyatna.listmaker.ui.detail.ListDetailFragment
 import com.zuyatna.listmaker.ui.main.MainFragment
 import com.zuyatna.listmaker.ui.main.MainViewModel
 import com.zuyatna.listmaker.ui.main.MainViewModelFactory
@@ -92,10 +94,18 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
     }
 
     private fun showListDetail(list: TaskList) {
-        val listDetailIntent = Intent(this, ListDetailActivity::class.java)
-        listDetailIntent.putExtra(INTENT_LIST_KEY, list)
 
-         startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
+        if (binding.mainFragmentContainer == null) {
+            val listDetailIntent = Intent(this, ListDetailActivity::class.java)
+            listDetailIntent.putExtra(INTENT_LIST_KEY, list)
+            startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
+        } else {
+            val bundle = bundleOf(INTENT_LIST_KEY to list)
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.list_detail_fragment_container, ListDetailFragment::class.java, bundle, null)
+            }
+        }
     }
 
     companion object {

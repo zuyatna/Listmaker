@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zuyatna.listmaker.MainActivity
 import com.zuyatna.listmaker.databinding.ListDetailFragmentBinding
+import com.zuyatna.listmaker.models.TaskList
 
 class ListDetailFragment : Fragment() {
 
@@ -34,6 +36,12 @@ class ListDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[ListDetailViewModel::class.java]
+
+        val list: TaskList? = arguments?.getParcelable(MainActivity.INTENT_LIST_KEY)
+        if (list != null) {
+            viewModel.list = list
+            requireActivity().title = list.name
+        }
 
         val recyclerAdapter = ListItemsRecyclerViewAdapter(viewModel.list)
         binding.listItemsRecyclerview.adapter = recyclerAdapter
